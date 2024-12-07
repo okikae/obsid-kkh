@@ -1,6 +1,6 @@
 {
 	"id": "kkh",
-	"name": "kkh plugin",
+	"name": "kkh",
 	"version": "1.0.0",
 	"minAppVersion": "1.0.0",
 	"description": "Replace words in a string using kkh dictionary.",
