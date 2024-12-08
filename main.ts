@@ -26,7 +26,7 @@ export default class kkhPlugin extends Plugin {
 ///////////////////////////////////////////////////////////////////////
 // 新仮名遣いから旧仮名遣いへ変換(コマンドパレットから)
 this.addCommand({
-    id: 'kkh-tradkana-command',
+    id: 'kkh-tradkana',
     name: '旧仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
@@ -37,7 +37,7 @@ this.addCommand({
 
 // 旧仮名遣いから新仮名遣いへ変換(コマンドパレットから)
 this.addCommand({
-    id: 'kkh-modernkana-command',
+    id: 'kkh-modernkana',
     name: '新仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
@@ -48,7 +48,7 @@ this.addCommand({
 
 // 新漢字から旧漢字へ変換(コマンドパレットから)
 this.addCommand({
-    id: 'kkh-oldkanji-command',
+    id: 'kkh-oldkanji',
     name: '旧漢字へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
@@ -59,7 +59,7 @@ this.addCommand({
 
 // 旧漢字から新漢字へ変換(コマンドパレットから)
 this.addCommand({
-    id: 'kkh-newkanji-command',
+    id: 'kkh-newkanji',
     name: '新漢字へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
@@ -70,7 +70,7 @@ this.addCommand({
 
 // 新字新仮名遣いから旧字旧仮名遣いへ変換(コマンドパレットから)
 this.addCommand({
-    id: 'kkh-tradkana-oldkanji-command',
+    id: 'kkh-tradkana-oldkanji',
     name: '旧字旧仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
@@ -82,7 +82,7 @@ this.addCommand({
 
 // 旧字旧仮名遣いから新字新仮名遣いへ変換(コマンドパレットから)
 this.addCommand({
-    id: 'kkh-modernkana-newkanji-command',
+    id: 'kkh-modernkana-newkanji',
     name: '新字新仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
@@ -95,30 +95,13 @@ this.addCommand({
 // 辞書の大きさをポップアップメッセージに表示(コマンドパレットから)
 this.addCommand({
     id: 'kkh-dictionary-info',
-    name: 'kkh 辞書の情報',
+    name: '辞書の情報',
     callback: () => {
         const message = "かな辞書:" + kanaArray.length + '  ' +
                         "漢字辞書:" + kanjiArray.length;
         new Notice(message);
     }
 });
-
-// kkh についてモーダルウィンドウに表示(コマンドパレットから)
-this.addCommand({
-    id: 'kkh-about-modal',
-    name: 'kkh について(モーダル)',
-    callback: () => {
-        new kkhModalInfo(this.app).open();
-    }
-});
-
-// 辞書の大きさをポップアップメッセージに表示(リボンアイコンから)
-// this.addRibbonIcon('info', 'kkh 辞書の情報', () => {
-//   const message = "かな辞書:" + kanaArray.length + '  ' +
-//                   "漢字辞書:" + kanjiArray.length;
-//   new Notice(message);
-// });
-
 
 /////////////////////////////////////////////////////////////////////////
 // リボンからメニューを選択して操作する
@@ -560,88 +543,6 @@ this.registerEvent(
     })
 );
 
-// エディタメニュー(モバイル版のみ)コンテキストメニューを追加する
-// エディタメニューはコマンドパレットから
-// "Show context menu under cursor" を選択すると表示される
-// this.registerEvent(
-//     this.app.workspace.on('editor-menu', (menu, editor, view) => {
-//         menu.addItem((item) => {
-//             item
-//                 .setTitle('kkh 👈')
-//                 .setIcon('')
-//                 .onClick(async () => {
-//                     new Notice(view.file.path);
-//                 });
-//         });
-//     })
-// );
-// 左側のリボンにアイコンを作成する
-// const ribbonIconEl =
-//     this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
-//      // ユーザがアイコンをクリックした時に呼ばれる
-//      new Notice('This is a notice!');
-//     });
-
-// // Perform additional things with the ribbon
-// ribbonIconEl.addClass('my-plugin-ribbon-class');
-
-// This adds a status bar item to the bottom of the app.
-// モバイルアプリでは動作しない
-// const statusBarItemEl = this.addStatusBarItem();
-// statusBarItemEl.setText('Status Bar Text');
-
-// This adds an editor command that can perform some operation
-// on the current editor instance
-// this.addCommand({
-//  id: 'sample-editor-command',
-//  name: 'Sample editor command',
-//  editorCallback: (editor: Editor, view: MarkdownView) => {
-//      console.log(editor.getSelection());
-//      editor.replaceSelection('Sample Editor Command');
-//  }
-// });
-
-// This adds a complex command that can check whether the current
-// state of the app allows execution of the command
-// this.addCommand({
-//  id: 'open-sample-modal-complex',
-//  name: 'Open sample modal (complex)',
-//  checkCallback: (checking: boolean) => {
-//      // Conditions to check
-//      const markdownView =
-//             this.app.workspace.getActiveViewOfType(MarkdownView);
-//      if (markdownView) {
-//          // If checking is true, we're simply "checking"
-//             // if the command can be run.
-//          // If checking is false, then we want to actually perform
-//             // the operation.
-//          if (!checking) {
-//              new SampleModal(this.app).open();
-//          }
-//          // This command will only show up in Command Palette
-//             // when the check function returns true
-//          return true;
-//      }
-//  }
-// });
-
-// This adds a settings tab so the user can configure various
-// aspects of the plugin
-// this.addSettingTab(new SampleSettingTab(this.app, this));
-
-// If the plugin hooks up any global DOM events (on parts of
-// the app that doesn't belong to this plugin)
-// Using this function will automatically remove the event listener
-// when this plugin is disabled.
-// this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-//  console.log('click', evt);
-// });
-
-// When registering intervals, this function will automatically clear
-// the interval when the plugin is disabled.
-// this.registerInterval(window.setInterval(() =>
-//     console.log('setInterval'), 5 * 60 * 1000));
-
 
     }  // onload() 閉じ
 
@@ -674,43 +575,6 @@ class kkhModalInfo extends Modal {
     onClose() {
         const {contentEl} = this;
         contentEl.empty();
-    }
-}
-
-
-class SampleSettingTab extends PluginSettingTab {
-    plugin: kkhPlugin;
-
-    constructor(app: App, plugin: kkhPlugin) {
-        super(app, plugin);
-        this.plugin = plugin;
-    }
-
-    display(): void {
-        const {containerEl} = this;
-
-        containerEl.empty();
-
-        new Setting(containerEl)
-            .setName('設定項目その1')
-            .setDesc('設定すべきもはある？')
-            .addText(text => text
-            .setPlaceholder('ないんだな')
-            .setValue(this.plugin.settings.mySetting)
-            .onChange(async (value) => {
-                this.plugin.settings.mySetting = value;
-                await this.plugin.saveSettings();
-            }));
-        new Setting(containerEl)
-            .setName('設定項目その2')
-            .setDesc('設定すべきもはない？')
-            .addText(text => text
-            .setPlaceholder('だからないの')
-            .setValue(this.plugin.settings.mySetting)
-            .onChange(async (value) => {
-                this.plugin.settings.mySetting = value;
-                await this.plugin.saveSettings();
-            }));
     }
 }
 
@@ -749,30 +613,3 @@ function oldToNew(text:string): string {
     }
     return buf;
 }
-
-// replaceAll が実装されるまでの一時的な関数
-// function gsub(str:string, key:string, val:string): string {
-//     return str.split(key).join(val);
-// }
-
-// 参考にしたソース
-// [https://forum.obsidian.md/t/get-current-text-selection/23436/3] より
-// let view = this.app.workspace.getActiveViewOfType(MarkdownView);
-// if (!view) {
-//     // View は null の時もある。この場合は何もしない
-// } else {
-//     let view_mode = view.getMode(); // "preview" か "source"
-//     switch (view_mode) {
-//         case "preview":
-//             // preview モードでは何もしない
-//             break;
-//         case "source":
-//             if ("editor" in view) {
-//                 let selection = view.editor.getSelection();
-//                 // ここで好きなようにする
-//             }
-//             break;
-//         default:
-//             break;
-//     }
-// }
