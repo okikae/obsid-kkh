@@ -66,7 +66,7 @@ Obsidian はマルチプラットフォーム・マルチデバイスで利用�
 
 ページ右側の Releases から Assets 内の "main.js" と "manifest.json" をダウンロードします。
 
-Vault フォルダ以下に ".obsidian/plugins/obsidian-kkh" フォルダを作成し、そこに "main.js", "manifest.json" を移動します。
+Vault フォルダ以下に ".obsidian/plugins/obsid-kkh" フォルダを作成し、そこに "main.js", "manifest.json" を移動します。
 
 わたしは macOS, iPadOS, iOS で共有するために iCloud を利用しています。このため、Vault フォルダを "$HOME/Library/Mobile Documents/iCloud\~md\~obsidian/Documents
 " 以下に置いています。
@@ -74,17 +74,19 @@ Vault フォルダ以下に ".obsidian/plugins/obsidian-kkh" フォルダを作�
 例えば Vault フォルダを「雑記」とします。このときプラグインは下記のように配置して Obsidian で設定すると利用可能になります。
 
 ```
-$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/雑記/.obsidian/plugins/obsidian-kkh/main.js
-$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/雑記/.obsidian/plugins/obsidian-kkh/manifest.js
+$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/雑記/.obsidian/plugins/obsid-kkh/main.js
+$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/雑記/.obsidian/plugins/obsid-kkh/manifest.js
 ```
 
-Windows では Vault フォルダを "C:\Users\ユーザー名\ドキュメント" 以下に作成することが多い(のかな？)と思いますので、そこにある Vault フォルダ以下にエクスプローラーで ".obsidian/plugins/obsidian-kkh" フォルダを作成していって、上記の 2 ファイルをコピーすれば良いと思います(ドットフォルダが不可視になるのかわかりませんけど)。
+Windows では Vault フォルダを "C:\Users\ユーザー名\ドキュメント" 以下に作成することが多い(のかな？)と思いますので、そこにある Vault フォルダ以下にエクスプローラーで ".obsidian/plugins/obsid-kkh" フォルダを作成していって、上記の 2 ファイルをコピーすれば良いと思います(ドットフォルダが不可視になるのかわかりませんけど)。
 
 Obsidian での設定は、"Preference..." -> "Community Plugins" -> "Installed plugins" で有効にすれば完了です。
 
 ### 公式サイトのコミュニティープラグインから
 
-「Preferences...」->「Community Plugins」で Browse ボタンを押すとプラグイン一覧が表示されるので、"kkh" を検索します。現在はまだ申請していませんので、この方法ではインストールすることはできません。お待ちください。
+「Preferences...」->「Community Plugins」で Browse ボタンを押すとプラグイン一覧が表示されるので、"kkh" を検索します。ただいま申請中ですが、承認されるまで先は長そうです。現時点ではこの方法ではインストールすることはできません。お待ちください。
+
+(コード中に "Obsidian" や "plugin" の文字列が入っているとダメとのことでした。公式？と紛らわしくならないよう、プロジェクト名も "Obsidian-kkh" -> "Obsid-kkh" に変更しました。)
 
 ## その他
 
