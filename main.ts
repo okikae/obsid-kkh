@@ -106,7 +106,7 @@ this.addCommand({
 /////////////////////////////////////////////////////////////////////////
 // リボンからメニューを選択して操作する
 /////////////////////////////////////////////////////////////////////////
-this.addRibbonIcon('dice', 'kkh メニュー', (event) => {
+this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
     const menu = new Menu();
 
     menu.addItem((item) =>
