@@ -1,7 +1,7 @@
 {
 	"id": "kkh",
 	"name": "kkh",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"minAppVersion": "0.15.0",
 	"description": "Replace words in a string using kkh dictionary.",
 	"author": "奈幾乃(uakms)",
