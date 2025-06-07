@@ -36,8 +36,8 @@ this.addCommand({
     name: '旧仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, toTradKanaArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, toTradKanaArray, "normal");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -47,8 +47,8 @@ this.addCommand({
     name: '新仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, toModernKanaArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, toModernKanaArray, "normal");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -58,8 +58,8 @@ this.addCommand({
     name: '旧漢字へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -69,8 +69,8 @@ this.addCommand({
     name: '新漢字へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -80,9 +80,9 @@ this.addCommand({
     name: '旧字旧仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, toTradKanaArray, "normal");
-        selectedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replaced1Text = replaceStrings(selectedText, toTradKanaArray, "normal");
+        let replaced2Text = replaceStrings(replaced1Text, toOldKanjiArray, "normal");
+        editor.replaceSelection(replaced2Text);
     }
 });
 
@@ -92,9 +92,9 @@ this.addCommand({
     name: '新字新仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
-        selectedText = replaceStrings(selectedText, toModernKanaArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replaced1Text = replaceStrings(selectedText, toNewKanjiArray, "normal");
+        let replaced2Text = replaceStrings(replaced1Text, toModernKanaArray, "normal");
+        editor.replaceSelection(replaced2Text);
     }
 });
 
@@ -104,8 +104,8 @@ this.addCommand({
     name: '踊り字：旧仮名の踊り字が使われた文を現代表記へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, odoriEnhanceArray, "reverse");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, odoriEnhanceArray, "reverse");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -115,8 +115,8 @@ this.addCommand({
     name: '踊り字：現代表記を旧仮名の踊り字を使う文へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, odoriEnhanceArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, odoriEnhanceArray, "normal");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -126,8 +126,8 @@ this.addCommand({
     name: '外来語：昔風のカタカナを今風に変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, gairaiEnhanceArray, "reverse");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, gairaiEnhanceArray, "reverse");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -137,8 +137,8 @@ this.addCommand({
     name: '外来語：カタカナ表記を昔風に変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, gairaiEnhanceArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, gairaiEnhanceArray, "normal");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -148,8 +148,8 @@ this.addCommand({
     name: '合略仮名：合略仮名が使われた文を現代表記へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, gouryakuEnhanceArray, "reverse");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, gouryakuEnhanceArray, "reverse");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -159,8 +159,8 @@ this.addCommand({
     name: '合略仮名：現代表記を合略仮名を使う文へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, gouryakuEnhanceArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, gouryakuEnhanceArray, "normal");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -170,8 +170,8 @@ this.addCommand({
     name: 'ヤ行エ：ヤ行エが使われた文を現代表記へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, yeEnhanceArray, "reverse");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, yeEnhanceArray, "reverse");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -181,8 +181,8 @@ this.addCommand({
     name: 'ヤ行エ：現代表記をヤ行エを使う文へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let selectedText = editor.getSelection();
-        selectedText = replaceStrings(selectedText, yeEnhanceArray, "normal");
-        editor.replaceSelection(selectedText);
+        let replacedText = replaceStrings(selectedText, yeEnhanceArray, "normal");
+        editor.replaceSelection(replacedText);
     }
 });
 
@@ -230,9 +230,9 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, toTradKanaArray, "normal");
-                                    selectedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replaced1Text = replaceStrings(selectedText, toTradKanaArray, "normal");
+                                    let replaced2Text = replaceStrings(replaced1Text, toOldKanjiArray, "normal");
+                                    view.editor.replaceSelection(replaced2Text);
                                     new Notice('旧字旧仮名へ変換しました！');
                                 }
                             }
@@ -264,9 +264,9 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
-                                    selectedText = replaceStrings(selectedText, toModernKanaArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replaced1Text = replaceStrings(selectedText, toNewKanjiArray, "normal");
+                                    let replaced2Text = replaceStrings(replaced1Text, toModernKanaArray, "normal");
+                                    view.editor.replaceSelection(replaced2Text);
                                     new Notice('新字新仮名へ変換しました！');
                                 }
                             }
@@ -300,8 +300,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, toTradKanaArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, toTradKanaArray, "normal");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('旧仮名遣いへ変換しました！');
                                 }
                             }
@@ -333,8 +333,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, toModernKanaArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, toModernKanaArray, "normal");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('新仮名遣いへ変換しました！');
                                 }
                             }
@@ -368,8 +368,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('旧漢字へ変換しました！');
                                 }
                             }
@@ -401,8 +401,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('新漢字へ変換しました！');
                                 }
                             }
@@ -436,8 +436,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, odoriEnhanceArray, "reverse");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, odoriEnhanceArray, "reverse");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('踊り字を現代表記へ変換しました！');
                                 }
                             }
@@ -469,8 +469,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, odoriEnhanceArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, odoriEnhanceArray, "normal");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('旧仮名の踊り字を使う文へ変換しました！');
                                 }
                             }
@@ -504,8 +504,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, gairaiEnhanceArray, "reverse");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, gairaiEnhanceArray, "reverse");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('昔風のカタカナを今風に変換しました！');
                                 }
                             }
@@ -537,8 +537,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, gairaiEnhanceArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, gairaiEnhanceArray, "normal");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('カタカナ表記を昔風に変換しました！');
                                 }
                             }
@@ -572,8 +572,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, gouryakuEnhanceArray, "reverse");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, gouryakuEnhanceArray, "reverse");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('合略仮名が使われた文を現代表記へ変換しました！');
                                 }
                             }
@@ -605,8 +605,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, gouryakuEnhanceArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, gouryakuEnhanceArray, "normal");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('現代表記を合略仮名を使う文へ変換しました！');
                                 }
                             }
@@ -640,8 +640,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, yeEnhanceArray, "reverse");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, yeEnhanceArray, "reverse");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('ヤ行エが使われた文を現代表記へ変換しました！');
                                 }
                             }
@@ -673,8 +673,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
-                                    selectedText = replaceStrings(selectedText, yeEnhanceArray, "normal");
-                                    view.editor.replaceSelection(selectedText);
+                                    let replacedText = replaceStrings(selectedText, yeEnhanceArray, "normal");
+                                    view.editor.replaceSelection(replacedText);
                                     new Notice('現代表記をヤ行エを使う文へ変換しました！');
                                 }
                             }
@@ -736,9 +736,9 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, toTradKanaArray, "normal");
-                                        selectedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replaced1Text = replaceStrings(selectedText, toTradKanaArray, "normal");
+                                        let replaced2Text = replaceStrings(replaced1Text, toOldKanjiArray, "normal");
+                                        view.editor.replaceSelection(replaced2Text);
                                         // new Notice('旧字旧仮名へ変換しました！');
                                     }
                                 }
@@ -769,9 +769,9 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
-                                        selectedText = replaceStrings(selectedText, toModernKanaArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replaced1Text = replaceStrings(selectedText, toNewKanjiArray, "normal");
+                                        let replaced2Text = replaceStrings(replaced1Text, toModernKanaArray, "normal");
+                                        view.editor.replaceSelection(replaced2Text);
                                         // new Notice('新字新仮名へ変換しました！');
                                     }
                                 }
@@ -802,8 +802,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, toTradKanaArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, toTradKanaArray, "normal");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('旧仮名遣いへ変換しました！');
                                     }
                                 }
@@ -834,8 +834,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, toModernKanaArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, toModernKanaArray, "normal");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('新仮名遣いへ変換しました！');
                                     }
                                 }
@@ -866,8 +866,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('旧漢字へ変換しました！');
                                     }
                                 }
@@ -898,8 +898,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('新漢字へ変換しました！');
                                     }
                                 }
@@ -930,8 +930,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, odoriEnhanceArray, "reverse");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, odoriEnhanceArray, "reverse");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('旧仮名の踊り字が使われた文を現代表記へ変換しました！');
                                     }
                                 }
@@ -962,8 +962,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, odoriEnhanceArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, odoriEnhanceArray, "normal");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('現代表記を旧仮名の踊り字を使う文へ変換しました！');
                                     }
                                 }
@@ -994,8 +994,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, gairaiEnhanceArray, "reverse");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, gairaiEnhanceArray, "reverse");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('昔風のカタカナを今風に変換しました！');
                                     }
                                 }
@@ -1026,8 +1026,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, gairaiEnhanceArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, gairaiEnhanceArray, "normal");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('カタカナ表記を昔風に変換しました！');
                                     }
                                 }
@@ -1058,8 +1058,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, gouryakuEnhanceArray, "reverse");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, gouryakuEnhanceArray, "reverse");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('合略仮名が使われた文を現代表記へ変換しました！');
                                     }
                                 }
@@ -1090,8 +1090,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, gouryakuEnhanceArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, gouryakuEnhanceArray, "normal");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('現代表記を合略仮名を使う文へ変換しました！');
                                     }
                                 }
@@ -1122,8 +1122,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, yeEnhanceArray, "reverse");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, yeEnhanceArray, "reverse");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('ヤ行エが使われた文を現代表記へ変換しました！');
                                     }
                                 }
@@ -1154,8 +1154,8 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
-                                        selectedText = replaceStrings(selectedText, yeEnhanceArray, "normal");
-                                        view.editor.replaceSelection(selectedText);
+                                        let replacedText = replaceStrings(selectedText, yeEnhanceArray, "normal");
+                                        view.editor.replaceSelection(replacedText);
                                         // new Notice('現代表記をヤ行エを使う文へ変換しました！');
                                     }
                                 }
