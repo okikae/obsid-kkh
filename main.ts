@@ -31,9 +31,13 @@ this.addCommand({
     id: 'kkh-tradkana',
     name: '旧仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
+        let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
         let replacedText = replaceStrings(selectedText, toTradKanaArray, "normal");
         editor.replaceSelection(replacedText);
+        let rangeTo = {line: rangeFrom.line,
+            ch: rangeFrom.ch + replacedText.length};
+        editor.setSelection(rangeFrom, rangeTo);
     }
 });
 
@@ -42,9 +46,13 @@ this.addCommand({
     id: 'kkh-modernkana',
     name: '新仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
+        let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
         let replacedText = replaceStrings(selectedText, toModernKanaArray, "normal");
         editor.replaceSelection(replacedText);
+        let rangeTo = {line: rangeFrom.line,
+            ch: rangeFrom.ch + replacedText.length};
+        editor.setSelection(rangeFrom, rangeTo);
     }
 });
 
@@ -53,9 +61,13 @@ this.addCommand({
     id: 'kkh-oldkanji',
     name: '旧漢字へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
+        let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
         let replacedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
         editor.replaceSelection(replacedText);
+        let rangeTo = {line: rangeFrom.line,
+            ch: rangeFrom.ch + replacedText.length};
+        editor.setSelection(rangeFrom, rangeTo);
     }
 });
 
@@ -64,9 +76,13 @@ this.addCommand({
     id: 'kkh-newkanji',
     name: '新漢字へ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
+        let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
         let replacedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
         editor.replaceSelection(replacedText);
+        let rangeTo = {line: rangeFrom.line,
+            ch: rangeFrom.ch + replacedText.length};
+        editor.setSelection(rangeFrom, rangeTo);
     }
 });
 
@@ -75,10 +91,14 @@ this.addCommand({
     id: 'kkh-tradkana-oldkanji',
     name: '旧字旧仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
+        let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
         let replaced1Text = replaceStrings(selectedText, toTradKanaArray, "normal");
         let replaced2Text = replaceStrings(replaced1Text, toOldKanjiArray, "normal");
         editor.replaceSelection(replaced2Text);
+        let rangeTo = {line: rangeFrom.line,
+            ch: rangeFrom.ch + replaced2Text.length};
+        editor.setSelection(rangeFrom, rangeTo);
     }
 });
 
@@ -87,10 +107,14 @@ this.addCommand({
     id: 'kkh-modernkana-newkanji',
     name: '新字新仮名遣いへ変換',
     editorCallback: (editor: Editor, view: MarkdownView) => {
+        let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
         let replaced1Text = replaceStrings(selectedText, toNewKanjiArray, "normal");
         let replaced2Text = replaceStrings(replaced1Text, toModernKanaArray, "normal");
         editor.replaceSelection(replaced2Text);
+        let rangeTo = {line: rangeFrom.line,
+            ch: rangeFrom.ch + replaced2Text.length};
+        editor.setSelection(rangeFrom, rangeTo);
     }
 });
 
@@ -135,9 +159,13 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
+                                    let rangeFrom = view.editor.getCursor("from");
                                     let replaced1Text = replaceStrings(selectedText, toTradKanaArray, "normal");
                                     let replaced2Text = replaceStrings(replaced1Text, toOldKanjiArray, "normal");
                                     view.editor.replaceSelection(replaced2Text);
+                                    let rangeTo = {line: rangeFrom.line,
+                                        ch: rangeFrom.ch + replaced2Text.length};
+                                    view.editor.setSelection(rangeFrom, rangeTo);
                                     new Notice('旧字旧仮名へ変換しました！');
                                 }
                             }
@@ -169,9 +197,13 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
+                                    let rangeFrom = view.editor.getCursor("from");
                                     let replaced1Text = replaceStrings(selectedText, toNewKanjiArray, "normal");
                                     let replaced2Text = replaceStrings(replaced1Text, toModernKanaArray, "normal");
                                     view.editor.replaceSelection(replaced2Text);
+                                    let rangeTo = {line: rangeFrom.line,
+                                        ch: rangeFrom.ch + replaced2Text.length};
+                                    view.editor.setSelection(rangeFrom, rangeTo);
                                     new Notice('新字新仮名へ変換しました！');
                                 }
                             }
@@ -205,8 +237,12 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
+                                    let rangeFrom = view.editor.getCursor("from");
                                     let replacedText = replaceStrings(selectedText, toTradKanaArray, "normal");
                                     view.editor.replaceSelection(replacedText);
+                                    let rangeTo = {line: rangeFrom.line,
+                                        ch: rangeFrom.ch + replacedText.length};
+                                    view.editor.setSelection(rangeFrom, rangeTo);
                                     new Notice('旧仮名遣いへ変換しました！');
                                 }
                             }
@@ -238,8 +274,12 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
+                                    let rangeFrom = view.editor.getCursor("from");
                                     let replacedText = replaceStrings(selectedText, toModernKanaArray, "normal");
                                     view.editor.replaceSelection(replacedText);
+                                    let rangeTo = {line: rangeFrom.line,
+                                        ch: rangeFrom.ch + replacedText.length};
+                                    view.editor.setSelection(rangeFrom, rangeTo);
                                     new Notice('新仮名遣いへ変換しました！');
                                 }
                             }
@@ -273,8 +313,12 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
+                                    let rangeFrom = view.editor.getCursor("from");
                                     let replacedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
                                     view.editor.replaceSelection(replacedText);
+                                    let rangeTo = {line: rangeFrom.line,
+                                        ch: rangeFrom.ch + replacedText.length};
+                                    view.editor.setSelection(rangeFrom, rangeTo);
                                     new Notice('旧漢字へ変換しました！');
                                 }
                             }
@@ -306,8 +350,12 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 if (selectedText.length === 0) {
                                     new Notice('文字列が選択されていません！');
                                 } else {
+                                    let rangeFrom = view.editor.getCursor("from");
                                     let replacedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
                                     view.editor.replaceSelection(replacedText);
+                                    let rangeTo = {line: rangeFrom.line,
+                                        ch: rangeFrom.ch + replacedText.length};
+                                    view.editor.setSelection(rangeFrom, rangeTo);
                                     new Notice('新漢字へ変換しました！');
                                 }
                             }
@@ -365,9 +413,13 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
+                                        let rangeFrom = view.editor.getCursor("from");
                                         let replaced1Text = replaceStrings(selectedText, toTradKanaArray, "normal");
                                         let replaced2Text = replaceStrings(replaced1Text, toOldKanjiArray, "normal");
                                         view.editor.replaceSelection(replaced2Text);
+                                        let rangeTo = {line: rangeFrom.line,
+                                            ch: rangeFrom.ch + replaced2Text.length};
+                                        view.editor.setSelection(rangeFrom, rangeTo);
                                         // new Notice('旧字旧仮名へ変換しました！');
                                     }
                                 }
@@ -398,9 +450,13 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
+                                        let rangeFrom = view.editor.getCursor("from");
                                         let replaced1Text = replaceStrings(selectedText, toNewKanjiArray, "normal");
                                         let replaced2Text = replaceStrings(replaced1Text, toModernKanaArray, "normal");
                                         view.editor.replaceSelection(replaced2Text);
+                                        let rangeTo = {line: rangeFrom.line,
+                                            ch: rangeFrom.ch + replaced2Text.length};
+                                        view.editor.setSelection(rangeFrom, rangeTo);
                                         // new Notice('新字新仮名へ変換しました！');
                                     }
                                 }
@@ -431,8 +487,12 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
+                                        let rangeFrom = view.editor.getCursor("from");
                                         let replacedText = replaceStrings(selectedText, toTradKanaArray, "normal");
                                         view.editor.replaceSelection(replacedText);
+                                        let rangeTo = {line: rangeFrom.line,
+                                            ch: rangeFrom.ch + replacedText.length};
+                                        view.editor.setSelection(rangeFrom, rangeTo);
                                         // new Notice('旧仮名遣いへ変換しました！');
                                     }
                                 }
@@ -463,8 +523,12 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
+                                        let rangeFrom = view.editor.getCursor("from");
                                         let replacedText = replaceStrings(selectedText, toModernKanaArray, "normal");
                                         view.editor.replaceSelection(replacedText);
+                                        let rangeTo = {line: rangeFrom.line,
+                                            ch: rangeFrom.ch + replacedText.length};
+                                        view.editor.setSelection(rangeFrom, rangeTo);
                                         // new Notice('新仮名遣いへ変換しました！');
                                     }
                                 }
@@ -495,8 +559,12 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
+                                        let rangeFrom = view.editor.getCursor("from");
                                         let replacedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
                                         view.editor.replaceSelection(replacedText);
+                                        let rangeTo = {line: rangeFrom.line,
+                                            ch: rangeFrom.ch + replacedText.length};
+                                        view.editor.setSelection(rangeFrom, rangeTo);
                                         // new Notice('旧漢字へ変換しました！');
                                     }
                                 }
@@ -527,8 +595,12 @@ this.registerEvent(
                                     if (selectedText.length === 0) {
                                         new Notice('文字列が選択されていません！');
                                     } else {
+                                        let rangeFrom = view.editor.getCursor("from");
                                         let replacedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
                                         view.editor.replaceSelection(replacedText);
+                                        let rangeTo = {line: rangeFrom.line,
+                                            ch: rangeFrom.ch + replacedText.length};
+                                        view.editor.setSelection(rangeFrom, rangeTo);
                                         // new Notice('新漢字へ変換しました！');
                                     }
                                 }
