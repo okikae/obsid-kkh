@@ -1,5 +1,5 @@
-import { addIcon, App, Editor, MarkdownView, Menu, Modal, Notice,
-         Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { App, Editor, MarkdownView, Menu,
+         Modal, Notice, Plugin } from 'obsidian';
 import { toTradKanaArray } from "./jisyo/totradkanajisyo";
 import { toModernKanaArray } from "./jisyo/tomodernkanajisyo";
 import { toOldKanjiArray } from "./jisyo/tooldkanjijisyo";
@@ -645,22 +645,22 @@ this.registerEvent(
 }
 
 
-class kkhModalInfo extends Modal {
-    constructor(app: App) {
-        super(app);
-    }
+// class kkhModalInfo extends Modal {
+//     constructor(app: App) {
+//         super(app);
+//     }
 
-    onOpen() {
-        const {contentEl} = this;
-        const message = "kkh plugin for Obsidian."
-        contentEl.setText(message);
-    }
+//     onOpen() {
+//         const {contentEl} = this;
+//         const message = "kkh plugin for Obsidian."
+//         contentEl.setText(message);
+//     }
 
-    onClose() {
-        const {contentEl} = this;
-        contentEl.empty();
-    }
-}
+//     onClose() {
+//         const {contentEl} = this;
+//         contentEl.empty();
+//     }
+// }
 
 // 文字列を変換する関数
 function replaceStrings(selectedText: string, jisyo: [string, string, string[]][], flag: string): string {
@@ -670,7 +670,6 @@ function replaceStrings(selectedText: string, jisyo: [string, string, string[]][
       buf = buf.replaceAll(jisyo[i][0], jisyo[i][1]);
     } else if (flag === "reverse") {
       buf = buf.replaceAll(jisyo[i][1], jisyo[i][0]);
-    } else {
     }
   }
   return buf;
