@@ -1,9 +1,7 @@
 import { App, Editor, MarkdownView, Menu,
          Modal, Notice, Plugin } from 'obsidian';
-import { toTradKanaArray } from "./jisyo/totradkanajisyo";
-import { toModernKanaArray } from "./jisyo/tomodernkanajisyo";
-import { toOldKanjiArray } from "./jisyo/tooldkanjijisyo";
-import { toNewKanjiArray } from "./jisyo/tonewkanjijisyo";
+import { kanaArray } from "./jisyo/kana-jisyo";
+import { kanjiArray } from "./jisyo/kanji-jisyo";
 
 
 // これらのクラスとインターフェイスの名前を変更するのを忘れずに！
@@ -33,7 +31,7 @@ this.addCommand({
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
-        let replacedText = replaceStrings(selectedText, toTradKanaArray, "normal");
+        let replacedText = replaceStrings(selectedText, kanaArray, "normal");
         editor.replaceSelection(replacedText);
         let rangeTo = {line: rangeFrom.line,
             ch: rangeFrom.ch + replacedText.length};
@@ -48,7 +46,7 @@ this.addCommand({
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
-        let replacedText = replaceStrings(selectedText, toModernKanaArray, "normal");
+        let replacedText = replaceStrings(selectedText, kanaArray, "reverse");
         editor.replaceSelection(replacedText);
         let rangeTo = {line: rangeFrom.line,
             ch: rangeFrom.ch + replacedText.length};
@@ -63,7 +61,7 @@ this.addCommand({
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
-        let replacedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
+        let replacedText = replaceStrings(selectedText, kanjiArray, "normal");
         editor.replaceSelection(replacedText);
         let rangeTo = {line: rangeFrom.line,
             ch: rangeFrom.ch + replacedText.length};
@@ -78,7 +76,7 @@ this.addCommand({
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
-        let replacedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
+        let replacedText = replaceStrings(selectedText, kanjiArray, "reverse");
         editor.replaceSelection(replacedText);
         let rangeTo = {line: rangeFrom.line,
             ch: rangeFrom.ch + replacedText.length};
@@ -93,8 +91,8 @@ this.addCommand({
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
-        let replaced1Text = replaceStrings(selectedText, toTradKanaArray, "normal");
-        let replaced2Text = replaceStrings(replaced1Text, toOldKanjiArray, "normal");
+        let replaced1Text = replaceStrings(selectedText, kanaArray, "normal");
+        let replaced2Text = replaceStrings(replaced1Text, kanjiArray, "normal");
         editor.replaceSelection(replaced2Text);
         let rangeTo = {line: rangeFrom.line,
             ch: rangeFrom.ch + replaced2Text.length};
@@ -109,8 +107,8 @@ this.addCommand({
     editorCallback: (editor: Editor, view: MarkdownView) => {
         let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
-        let replaced1Text = replaceStrings(selectedText, toNewKanjiArray, "normal");
-        let replaced2Text = replaceStrings(replaced1Text, toModernKanaArray, "normal");
+        let replaced1Text = replaceStrings(selectedText, kanjiArray, "reverse");
+        let replaced2Text = replaceStrings(replaced1Text, kanaArray, "reverse");
         editor.replaceSelection(replaced2Text);
         let rangeTo = {line: rangeFrom.line,
             ch: rangeFrom.ch + replaced2Text.length};
@@ -125,10 +123,8 @@ this.addCommand({
     name: '辞書の情報',
     callback: () => {
         const message =
-            "かな辞書(旧→新)： " + toModernKanaArray.length +
-            "\nかな辞書(新→旧)： " + toTradKanaArray.length +
-            "\n漢字辞書(旧→新)： " + toNewKanjiArray.length +
-            "\n漢字辞書(新→旧)： " + toOldKanjiArray.length;
+            "かな辞書： " + kanaArray.length +
+            "\n漢字辞書： " + kanjiArray.length;
         new Notice(message);
     }
 });
@@ -160,8 +156,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                     new Notice('文字列が選択されていません！');
                                 } else {
                                     let rangeFrom = view.editor.getCursor("from");
-                                    let replaced1Text = replaceStrings(selectedText, toTradKanaArray, "normal");
-                                    let replaced2Text = replaceStrings(replaced1Text, toOldKanjiArray, "normal");
+                                    let replaced1Text = replaceStrings(selectedText, kanaArray, "normal");
+                                    let replaced2Text = replaceStrings(replaced1Text, kanjiArray, "normal");
                                     view.editor.replaceSelection(replaced2Text);
                                     let rangeTo = {line: rangeFrom.line,
                                         ch: rangeFrom.ch + replaced2Text.length};
@@ -198,8 +194,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                     new Notice('文字列が選択されていません！');
                                 } else {
                                     let rangeFrom = view.editor.getCursor("from");
-                                    let replaced1Text = replaceStrings(selectedText, toNewKanjiArray, "normal");
-                                    let replaced2Text = replaceStrings(replaced1Text, toModernKanaArray, "normal");
+                                    let replaced1Text = replaceStrings(selectedText, kanjiArray, "reverse");
+                                    let replaced2Text = replaceStrings(replaced1Text, kanaArray, "reverse");
                                     view.editor.replaceSelection(replaced2Text);
                                     let rangeTo = {line: rangeFrom.line,
                                         ch: rangeFrom.ch + replaced2Text.length};
@@ -238,7 +234,7 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                     new Notice('文字列が選択されていません！');
                                 } else {
                                     let rangeFrom = view.editor.getCursor("from");
-                                    let replacedText = replaceStrings(selectedText, toTradKanaArray, "normal");
+                                    let replacedText = replaceStrings(selectedText, kanaArray, "normal");
                                     view.editor.replaceSelection(replacedText);
                                     let rangeTo = {line: rangeFrom.line,
                                         ch: rangeFrom.ch + replacedText.length};
@@ -275,7 +271,7 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                     new Notice('文字列が選択されていません！');
                                 } else {
                                     let rangeFrom = view.editor.getCursor("from");
-                                    let replacedText = replaceStrings(selectedText, toModernKanaArray, "normal");
+                                    let replacedText = replaceStrings(selectedText, kanaArray, "reverse");
                                     view.editor.replaceSelection(replacedText);
                                     let rangeTo = {line: rangeFrom.line,
                                         ch: rangeFrom.ch + replacedText.length};
@@ -314,7 +310,7 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                     new Notice('文字列が選択されていません！');
                                 } else {
                                     let rangeFrom = view.editor.getCursor("from");
-                                    let replacedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
+                                    let replacedText = replaceStrings(selectedText, kanjiArray, "normal");
                                     view.editor.replaceSelection(replacedText);
                                     let rangeTo = {line: rangeFrom.line,
                                         ch: rangeFrom.ch + replacedText.length};
@@ -351,7 +347,7 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                     new Notice('文字列が選択されていません！');
                                 } else {
                                     let rangeFrom = view.editor.getCursor("from");
-                                    let replacedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
+                                    let replacedText = replaceStrings(selectedText, kanjiArray, "reverse");
                                     view.editor.replaceSelection(replacedText);
                                     let rangeTo = {line: rangeFrom.line,
                                         ch: rangeFrom.ch + replacedText.length};
@@ -375,10 +371,8 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
             .setIcon('')  // モバイル版では表示される
             .onClick(() => {
                 const message =
-                      "かな辞書(旧→新)： " + toModernKanaArray.length +
-                      "\nかな辞書(新→旧)： " + toTradKanaArray.length +
-                      "\n漢字辞書(旧→新)： " + toNewKanjiArray.length +
-                      "\n漢字辞書(新→旧)： " + toOldKanjiArray.length;
+                      "かな辞書： " + kanaArray.length +
+                      "\n漢字辞書： " + kanjiArray.length;
                 new Notice(message);
             })
                 );
@@ -414,8 +408,8 @@ this.registerEvent(
                                         new Notice('文字列が選択されていません！');
                                     } else {
                                         let rangeFrom = view.editor.getCursor("from");
-                                        let replaced1Text = replaceStrings(selectedText, toTradKanaArray, "normal");
-                                        let replaced2Text = replaceStrings(replaced1Text, toOldKanjiArray, "normal");
+                                        let replaced1Text = replaceStrings(selectedText, kanaArray, "normal");
+                                        let replaced2Text = replaceStrings(replaced1Text, kanjiArray, "normal");
                                         view.editor.replaceSelection(replaced2Text);
                                         let rangeTo = {line: rangeFrom.line,
                                             ch: rangeFrom.ch + replaced2Text.length};
@@ -451,8 +445,8 @@ this.registerEvent(
                                         new Notice('文字列が選択されていません！');
                                     } else {
                                         let rangeFrom = view.editor.getCursor("from");
-                                        let replaced1Text = replaceStrings(selectedText, toNewKanjiArray, "normal");
-                                        let replaced2Text = replaceStrings(replaced1Text, toModernKanaArray, "normal");
+                                        let replaced1Text = replaceStrings(selectedText, kanjiArray, "reverse");
+                                        let replaced2Text = replaceStrings(replaced1Text, kanaArray, "reverse");
                                         view.editor.replaceSelection(replaced2Text);
                                         let rangeTo = {line: rangeFrom.line,
                                             ch: rangeFrom.ch + replaced2Text.length};
@@ -488,7 +482,7 @@ this.registerEvent(
                                         new Notice('文字列が選択されていません！');
                                     } else {
                                         let rangeFrom = view.editor.getCursor("from");
-                                        let replacedText = replaceStrings(selectedText, toTradKanaArray, "normal");
+                                        let replacedText = replaceStrings(selectedText, kanaArray, "normal");
                                         view.editor.replaceSelection(replacedText);
                                         let rangeTo = {line: rangeFrom.line,
                                             ch: rangeFrom.ch + replacedText.length};
@@ -524,7 +518,7 @@ this.registerEvent(
                                         new Notice('文字列が選択されていません！');
                                     } else {
                                         let rangeFrom = view.editor.getCursor("from");
-                                        let replacedText = replaceStrings(selectedText, toModernKanaArray, "normal");
+                                        let replacedText = replaceStrings(selectedText, kanaArray, "reverse");
                                         view.editor.replaceSelection(replacedText);
                                         let rangeTo = {line: rangeFrom.line,
                                             ch: rangeFrom.ch + replacedText.length};
@@ -560,7 +554,7 @@ this.registerEvent(
                                         new Notice('文字列が選択されていません！');
                                     } else {
                                         let rangeFrom = view.editor.getCursor("from");
-                                        let replacedText = replaceStrings(selectedText, toOldKanjiArray, "normal");
+                                        let replacedText = replaceStrings(selectedText, kanjiArray, "normal");
                                         view.editor.replaceSelection(replacedText);
                                         let rangeTo = {line: rangeFrom.line,
                                             ch: rangeFrom.ch + replacedText.length};
@@ -596,7 +590,7 @@ this.registerEvent(
                                         new Notice('文字列が選択されていません！');
                                     } else {
                                         let rangeFrom = view.editor.getCursor("from");
-                                        let replacedText = replaceStrings(selectedText, toNewKanjiArray, "normal");
+                                        let replacedText = replaceStrings(selectedText, kanjiArray, "reverse");
                                         view.editor.replaceSelection(replacedText);
                                         let rangeTo = {line: rangeFrom.line,
                                             ch: rangeFrom.ch + replacedText.length};
@@ -617,10 +611,8 @@ this.registerEvent(
                 .setIcon('')  // モバイル版では表示される
                 .onClick(() => {
                   const message =
-                        "かな辞書(旧→新)： " + toModernKanaArray.length +
-                        "\nかな辞書(新→旧)： " + toTradKanaArray.length +
-                        "\n漢字辞書(旧→新)： " + toNewKanjiArray.length +
-                        "\n漢字辞書(新→旧)： " + toOldKanjiArray.length;
+                        "かな辞書： " + kanaArray.length +
+                        "\n漢字辞書： " + kanjiArray.length;
                     new Notice(message);
                 })
                     );
