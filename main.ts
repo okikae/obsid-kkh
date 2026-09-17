@@ -2,6 +2,7 @@ import { App, Editor, MarkdownView, Menu,
          Modal, Notice, Plugin } from 'obsidian';
 import { kanaArray } from "./jisyo/kana-jisyo";
 import { kanjiArray } from "./jisyo/kanji-jisyo";
+import { kogakiKanaArray } from "./jisyo/kogaki-kana-jisyo";
 
 
 // これらのクラスとインターフェイスの名前を変更するのを忘れずに！
@@ -32,6 +33,21 @@ this.addCommand({
         let rangeFrom = editor.getCursor("from");
         let selectedText = editor.getSelection();
         let replacedText = replaceStrings(selectedText, kanaArray, "normal");
+        editor.replaceSelection(replacedText);
+        let rangeTo = {line: rangeFrom.line,
+            ch: rangeFrom.ch + replacedText.length};
+        editor.setSelection(rangeFrom, rangeTo);
+    }
+});
+
+// 新仮名遣いから旧仮名遣いへ変換(小書き用)(コマンドパレットから)
+this.addCommand({
+    id: 'kkh-kogaki-tradkana',
+    name: '旧仮名遣いへ変換(小書き仮名)',
+    editorCallback: (editor: Editor, view: MarkdownView) => {
+        let rangeFrom = editor.getCursor("from");
+        let selectedText = editor.getSelection();
+        let replacedText = replaceStrings(selectedText, kogakiKanaArray, "normal");
         editor.replaceSelection(replacedText);
         let rangeTo = {line: rangeFrom.line,
             ch: rangeFrom.ch + replacedText.length};
@@ -100,6 +116,22 @@ this.addCommand({
     }
 });
 
+// 新字新仮名遣いから旧字旧仮名遣いへ変換(小書き用)(コマンドパレットから)
+this.addCommand({
+    id: 'kkh-kogaki-tradkana-oldkanji',
+    name: '旧字旧仮名遣いへ変換(小書き仮名)',
+    editorCallback: (editor: Editor, view: MarkdownView) => {
+        let rangeFrom = editor.getCursor("from");
+        let selectedText = editor.getSelection();
+        let replaced1Text = replaceStrings(selectedText, kogakiKanaArray, "normal");
+        let replaced2Text = replaceStrings(replaced1Text, kanjiArray, "normal");
+        editor.replaceSelection(replaced2Text);
+        let rangeTo = {line: rangeFrom.line,
+            ch: rangeFrom.ch + replaced2Text.length};
+        editor.setSelection(rangeFrom, rangeTo);
+    }
+});
+
 // 旧字旧仮名遣いから新字新仮名遣いへ変換(コマンドパレットから)
 this.addCommand({
     id: 'kkh-modernkana-newkanji',
@@ -124,6 +156,7 @@ this.addCommand({
     callback: () => {
         const message =
             "かな辞書： " + kanaArray.length +
+            "\nかな辞書(小書き)： " + kogakiKanaArray.length +
             "\n漢字辞書： " + kanjiArray.length;
         new Notice(message);
     }
@@ -157,6 +190,44 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 } else {
                                     let rangeFrom = view.editor.getCursor("from");
                                     let replaced1Text = replaceStrings(selectedText, kanaArray, "normal");
+                                    let replaced2Text = replaceStrings(replaced1Text, kanjiArray, "normal");
+                                    view.editor.replaceSelection(replaced2Text);
+                                    let rangeTo = {line: rangeFrom.line,
+                                        ch: rangeFrom.ch + replaced2Text.length};
+                                    view.editor.setSelection(rangeFrom, rangeTo);
+                                    new Notice('旧字旧仮名へ変換しました！');
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            })
+    );
+
+    menu.addItem((item) =>
+        item
+            .setTitle('文章：旧字旧仮名へ変換(小書き仮名)')
+            .setIcon('')  // モバイル版では表示される
+            .onClick(() => {
+                let view = this.app.workspace.getActiveViewOfType(MarkdownView);
+                if (!view) {
+                    // View は null の時もある。この場合は何もしない
+                } else {
+                    let view_mode = view.getMode();
+                    switch (view_mode) {
+                        case "preview":
+                            new Notice('編集モードにしてください！');
+                            break;
+                        case "source":
+                            if ("editor" in view) {
+                                let selectedText = view.editor.getSelection();
+                                if (selectedText.length === 0) {
+                                    new Notice('文字列が選択されていません！');
+                                } else {
+                                    let rangeFrom = view.editor.getCursor("from");
+                                    let replaced1Text = replaceStrings(selectedText, kogakiKanaArray, "normal");
                                     let replaced2Text = replaceStrings(replaced1Text, kanjiArray, "normal");
                                     view.editor.replaceSelection(replaced2Text);
                                     let rangeTo = {line: rangeFrom.line,
@@ -235,6 +306,43 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
                                 } else {
                                     let rangeFrom = view.editor.getCursor("from");
                                     let replacedText = replaceStrings(selectedText, kanaArray, "normal");
+                                    view.editor.replaceSelection(replacedText);
+                                    let rangeTo = {line: rangeFrom.line,
+                                        ch: rangeFrom.ch + replacedText.length};
+                                    view.editor.setSelection(rangeFrom, rangeTo);
+                                    new Notice('旧仮名遣いへ変換しました！');
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            })
+    );
+
+    menu.addItem((item) =>
+        item
+            .setTitle('かな：旧仮名遣いへ変換(小書き仮名)')
+            .setIcon('')  // モバイル版では表示される
+            .onClick(() => {
+                let view = this.app.workspace.getActiveViewOfType(MarkdownView);
+                if (!view) {
+                    // View は null の時もある。この場合は何もしない
+                } else {
+                    let view_mode = view.getMode();
+                    switch (view_mode) {
+                        case "preview":
+                            new Notice('編集モードにしてください！');
+                            break;
+                        case "source":
+                            if ("editor" in view) {
+                                let selectedText = view.editor.getSelection();
+                                if (selectedText.length === 0) {
+                                    new Notice('文字列が選択されていません！');
+                                } else {
+                                    let rangeFrom = view.editor.getCursor("from");
+                                    let replacedText = replaceStrings(selectedText, kogakiKanaArray, "normal");
                                     view.editor.replaceSelection(replacedText);
                                     let rangeTo = {line: rangeFrom.line,
                                         ch: rangeFrom.ch + replacedText.length};
@@ -372,6 +480,7 @@ this.addRibbonIcon('paw-print', 'kkh メニュー', (event) => {
             .onClick(() => {
                 const message =
                       "かな辞書： " + kanaArray.length +
+                      "\nかな辞書(小書き)： " + kogakiKanaArray.length +
                       "\n漢字辞書： " + kanjiArray.length;
                 new Notice(message);
             })
@@ -409,6 +518,43 @@ this.registerEvent(
                                     } else {
                                         let rangeFrom = view.editor.getCursor("from");
                                         let replaced1Text = replaceStrings(selectedText, kanaArray, "normal");
+                                        let replaced2Text = replaceStrings(replaced1Text, kanjiArray, "normal");
+                                        view.editor.replaceSelection(replaced2Text);
+                                        let rangeTo = {line: rangeFrom.line,
+                                            ch: rangeFrom.ch + replaced2Text.length};
+                                        view.editor.setSelection(rangeFrom, rangeTo);
+                                        // new Notice('旧字旧仮名へ変換しました！');
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+        });
+        menu.addItem((item) => {
+            item
+                .setTitle('文章：旧字旧仮名へ変換(小書き仮名)')
+                .setIcon('')
+                .onClick(async () => {
+                    let view = this.app.workspace.getActiveViewOfType(MarkdownView);
+                    if (!view) {
+                        // View は null の時もある。この場合は何もしない
+                    } else {
+                        let view_mode = view.getMode();
+                        switch (view_mode) {
+                            case "preview":
+                                new Notice('編集モードにしてください！');
+                                break;
+                            case "source":
+                                if ("editor" in view) {
+                                    let selectedText = view.editor.getSelection();
+                                    if (selectedText.length === 0) {
+                                        new Notice('文字列が選択されていません！');
+                                    } else {
+                                        let rangeFrom = view.editor.getCursor("from");
+                                        let replaced1Text = replaceStrings(selectedText, kogakiKanaArray, "normal");
                                         let replaced2Text = replaceStrings(replaced1Text, kanjiArray, "normal");
                                         view.editor.replaceSelection(replaced2Text);
                                         let rangeTo = {line: rangeFrom.line,
@@ -483,6 +629,42 @@ this.registerEvent(
                                     } else {
                                         let rangeFrom = view.editor.getCursor("from");
                                         let replacedText = replaceStrings(selectedText, kanaArray, "normal");
+                                        view.editor.replaceSelection(replacedText);
+                                        let rangeTo = {line: rangeFrom.line,
+                                            ch: rangeFrom.ch + replacedText.length};
+                                        view.editor.setSelection(rangeFrom, rangeTo);
+                                        // new Notice('旧仮名遣いへ変換しました！');
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+        });
+        menu.addItem((item) => {
+            item
+                .setTitle('かな：旧仮名遣いへ変換(小書き仮名)')
+                .setIcon('')
+                .onClick(async () => {
+                    let view = this.app.workspace.getActiveViewOfType(MarkdownView);
+                    if (!view) {
+                        // View は null の時もある。この場合は何もしない
+                    } else {
+                        let view_mode = view.getMode();
+                        switch (view_mode) {
+                            case "preview":
+                                new Notice('編集モードにしてください！');
+                                break;
+                            case "source":
+                                if ("editor" in view) {
+                                    let selectedText = view.editor.getSelection();
+                                    if (selectedText.length === 0) {
+                                        new Notice('文字列が選択されていません！');
+                                    } else {
+                                        let rangeFrom = view.editor.getCursor("from");
+                                        let replacedText = replaceStrings(selectedText, kogakiKanaArray, "normal");
                                         view.editor.replaceSelection(replacedText);
                                         let rangeTo = {line: rangeFrom.line,
                                             ch: rangeFrom.ch + replacedText.length};
@@ -612,6 +794,7 @@ this.registerEvent(
                 .onClick(() => {
                   const message =
                         "かな辞書： " + kanaArray.length +
+                        "\nかな辞書(小書き)： " + kogakiKanaArray.length +
                         "\n漢字辞書： " + kanjiArray.length;
                     new Notice(message);
                 })
